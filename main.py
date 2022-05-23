@@ -29,7 +29,7 @@ response = requests.post(exercise_endpoint, json=parameters, headers=headers)
 result = response.json()
 print(result)
 date = datetime.now()
-sheet_api = 'https://api.sheety.co/username/projectName/sheetName'
+sheet_endpoint = 'https://api.sheety.co/username/projectName/sheetName'
 for exercise in result["exercises"]:
     sheet_inputs = {
         'workout': {
@@ -41,5 +41,12 @@ for exercise in result["exercises"]:
         }
     }
 
-sheet_response = requests.post(sheet_api, json=sheet_inputs)
+bearer_headers = {
+    "Authorization": "Bearer YOUR_TOKEN"
+}
+sheet_response = requests.post(
+    sheet_endpoint,
+    json=sheet_inputs,
+    headers=bearer_headers
+)
 print(sheet_response.text)
